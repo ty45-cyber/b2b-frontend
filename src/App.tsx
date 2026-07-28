@@ -1,4 +1,4 @@
-
+import { useState } from "react";
 import { IntentInput } from "./components/IntentInput";
 import { NegotiationFeed } from "./components/NegotiationFeed";
 import { DealCard } from "./components/DealCard";
