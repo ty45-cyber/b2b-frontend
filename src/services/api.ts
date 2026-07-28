@@ -1,3 +1,4 @@
+/// <reference types="vite/client" />
 import axios from "axios";
 import { NegotiationResponse } from "../types";
 
@@ -9,8 +10,8 @@ export async function startNegotiation(
   item: string,
   initialPrice: number,
   targetPrice: number
-): Promise {
-  const response = await axios.post(`${API_BASE_URL}/negotiate/start`, {
+): Promise<NegotiationResponse> {
+  const response = await axios.post<NegotiationResponse>(`${API_BASE_URL}/negotiate/start`, {
     item,
     initialPrice,
     targetPrice,
@@ -18,7 +19,7 @@ export async function startNegotiation(
   return response.data;
 }
 
-export async function nextNegotiationTurn(sessionId: string): Promise {
-  const response = await axios.post(`${API_BASE_URL}/${sessionId}/turn`);
+export async function nextNegotiationTurn(sessionId: string): Promise<NegotiationResponse> {
+  const response = await axios.post<NegotiationResponse>(`${API_BASE_URL}/negotiate/${sessionId}/turn`);
   return response.data;
 }
