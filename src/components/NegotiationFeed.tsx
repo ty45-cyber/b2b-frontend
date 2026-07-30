@@ -4,6 +4,7 @@ import { AgentStep } from '../types';
 interface NegotiationFeedProps {
   agentStep: AgentStep | null;
   sessionId: string | null;
+  turnCount?: number;
   onSendResponse: (vendorPrice: number, vendorMessage: string) => void;
   loading: boolean;
 }
@@ -11,6 +12,7 @@ interface NegotiationFeedProps {
 export const NegotiationFeed: React.FC<NegotiationFeedProps> = ({
   agentStep,
   sessionId,
+  turnCount,
   onSendResponse,
   loading,
 }) => {
@@ -29,9 +31,14 @@ export const NegotiationFeed: React.FC<NegotiationFeedProps> = ({
   return (
     <div className="max-w-3xl mx-auto p-6 bg-slate-900 text-slate-100 rounded-xl shadow-2xl border border-slate-800">
       <div className="flex justify-between items-center mb-6 border-b border-slate-800 pb-4">
-        <h2 className="text-xl font-bold tracking-tight text-cyan-400">
-          AI Procurement Agent Feed
-        </h2>
+        <div>
+          <h2 className="text-xl font-bold tracking-tight text-cyan-400">
+            AI Procurement Agent Feed
+          </h2>
+          {turnCount !== undefined && (
+            <span className="text-xs text-slate-400">Turn #{turnCount}</span>
+          )}
+        </div>
         {sessionId && (
           <span className="text-xs text-slate-400 font-mono">
             Session: {sessionId.slice(0, 8)}...
@@ -45,7 +52,6 @@ export const NegotiationFeed: React.FC<NegotiationFeedProps> = ({
         </div>
       ) : (
         <div className="space-y-6">
-          {/* Status & Deal State Banner */}
           <div className="flex justify-between items-center bg-slate-800/50 p-4 rounded-lg border border-slate-700">
             <div>
               <span className="text-xs uppercase tracking-wider text-slate-400 font-semibold block">
@@ -73,7 +79,6 @@ export const NegotiationFeed: React.FC<NegotiationFeedProps> = ({
             </div>
           </div>
 
-          {/* Agent Pricing & Tactics */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
             <div className="bg-slate-800 p-4 rounded-lg border border-slate-700">
               <span className="text-xs text-slate-400 font-semibold block mb-1">
@@ -101,9 +106,8 @@ export const NegotiationFeed: React.FC<NegotiationFeedProps> = ({
             </div>
           </div>
 
-          {/* Strategic Reasoning */}
           <div className="bg-slate-800/80 p-4 rounded-lg border border-slate-700">
-            <span className="text-xs text-slate-400 font-semibold block mb-1 text-slate-400">
+            <span className="text-xs font-semibold block mb-1 text-slate-400">
               Strategic Reasoning
             </span>
             <p className="text-sm text-slate-300 leading-relaxed">
@@ -111,7 +115,6 @@ export const NegotiationFeed: React.FC<NegotiationFeedProps> = ({
             </p>
           </div>
 
-          {/* Message Sent to Vendor */}
           <div className="bg-cyan-950/30 border border-cyan-800/50 p-4 rounded-lg">
             <span className="text-xs text-cyan-400 font-semibold block mb-1 uppercase tracking-wider">
               Message Sent to Vendor
@@ -121,7 +124,6 @@ export const NegotiationFeed: React.FC<NegotiationFeedProps> = ({
             </p>
           </div>
 
-          {/* Vendor Counter-Offer Form */}
           {agentStep.dealStatus === 'negotiating' && (
             <form onSubmit={handleSubmit} className="mt-6 pt-6 border-t border-slate-800 space-y-4">
               <h3 className="text-sm font-semibold text-slate-300">
