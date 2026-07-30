@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import { AgentStep, NegotiationResponse } from './types';
 import { NegotiationFeed } from './components/NegotiationFeed';
 
-const API_BASE = import.meta.env.VITE_API_BASE_URL || 'https://renter-production-0ae6.up.railway.app/api';
+const API_BASE = import.meta.env.VITE_API_BASE_URL || const API_BASE = 'https://renter-production-bf69.up.railway.app/api';;
 
 export function App() {
   const [item, setItem] = useState('');
